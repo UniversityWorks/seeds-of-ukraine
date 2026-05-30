@@ -1,6 +1,5 @@
-# 🌾 Seeds of Ukraine — SaaS Platform v2.0
+#Seeds of Ukraine — SaaS Platform
 
-> Intelligent Crop Management · Yield Analytics · Regional Intelligence
 
 A commercial-grade, modular Streamlit + PostgreSQL SaaS/CRM platform
 for modern Ukrainian farmers, agronomists, and agricultural businesses.
@@ -40,50 +39,50 @@ Open **http://localhost:8501** in your browser.
 ```
 seeds_of_ukraine_v2/
 │
-├── app.py                          # Entrypoint — page config + tab router
+├── app.py                          
 ├── requirements.txt
 ├── README.md
 │
 ├── .streamlit/
-│   └── config.toml                 # Server + theme settings
+│   └── config.toml                 
 │
-├── config/                         # 🔧 Configuration layer
+├── config/                         
 │   ├── __init__.py
-│   ├── settings.py                 # All constants, env-var defaults, palette
-│   └── styles.py                   # Complete CSS stylesheet as a Python string
+│   ├── settings.py                 
+│   └── styles.py                   
 │
-├── database/                       # 🗄️  Data access layer
+├── database/                      
 │   ├── __init__.py
-│   ├── connection.py               # Low-level psycopg2 helpers (fetch/execute)
-│   ├── session.py                  # Session management + lookup refresh
-│   └── queries.py                  # All 27 SQL queries + CRUD + SP caller
+│   ├── connection.py               
+│   ├── session.py                 
+│   └── queries.py                 
 │
-├── ui/                             # 🖥️  Presentation layer
+├── ui/                             
 │   ├── __init__.py
 │   ├── components/
 │   │   ├── __init__.py
-│   │   ├── shell.py                # Sidebar, header banner, not-connected screen
-│   │   └── widgets.py              # Reusable Streamlit widget helpers
+│   │   ├── shell.py               
+│   │   └── widgets.py              
 │   └── pages/
 │       ├── __init__.py
-│       ├── overview.py             # Tab 1 — Executive dashboard
-│       ├── catalogue.py            # Tab 2 — Variety catalogue (Q01-Q07, Q15-Q17)
-│       ├── yield_intelligence.py   # Tab 3 — Yield analytics (Q03, Q08-Q14, Q19-Q20)
-│       ├── care_planner.py         # Tab 4 — Care scheduler (Q05, Q10, Q18, SP)
-│       ├── advanced_analytics.py   # Tab 5 — Sub-query analytics (Q21-Q27)
-│       ├── manage_varieties.py     # Tab 6 — CRUD varieties
-│       ├── record_harvest.py       # Tab 7 — CRUD yield records
-│       └── activity_log.py         # Tab 8 — Trigger-backed audit trail
+│       ├── overview.py             
+│       ├── catalogue.py           
+│       ├── yield_intelligence.py  
+│       ├── care_planner.py        
+│       ├── advanced_analytics.py   
+│       ├── manage_varieties.py     
+│       ├── record_harvest.py      
+│       └── activity_log.py        
 │
-├── utils/                          # 🔨 Shared utilities
+├── utils/                          
 │   ├── __init__.py
-│   ├── charts.py                   # Plotly figure factory functions
-│   ├── formatters.py               # Pure display/formatting helpers
-│   └── error_handler.py            # safe_query / safe_write / show_df
+│   ├── charts.py                  
+│   ├── formatters.py              
+│   └── error_handler.py            
 │
 └── assets/
     └── sql/
-        └── schema.sql              # DDL, indexes, trigger, SP, 15+ seed rows/table
+        └── schema.sql             
 ```
 
 ---
