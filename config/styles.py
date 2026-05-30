@@ -13,14 +13,10 @@ Keeping CSS in its own module means:
 
 GLOBAL_CSS = """
 <style>
-/* ═══════════════════════════════════════════════════════════════════════════
-   GOOGLE FONTS
-   ═══════════════════════════════════════════════════════════════════════════ */
+/*    GOOGLE FONTS */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=DM+Sans:wght@300;400;500;600&display=swap');
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   DESIGN TOKENS
-   ═══════════════════════════════════════════════════════════════════════════ */
+/*   DESIGN TOKENS */
 :root {
     --green-deep:   #1a3c2b;
     --green-mid:    #2d6a4f;
@@ -39,18 +35,14 @@ GLOBAL_CSS = """
     --radius:       12px;
 }
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   GLOBAL RESET
-   ═══════════════════════════════════════════════════════════════════════════ */
+/*    GLOBAL RESET */
 html, body, [class*="css"] {
     font-family: 'DM Sans', sans-serif;
     background-color: var(--cream);
     color: var(--text-dark);
 }
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   SIDEBAR
-   ═══════════════════════════════════════════════════════════════════════════ */
+/*   SIDEBAR */
 [data-testid="stSidebar"] {
     background: linear-gradient(180deg, var(--green-deep) 0%, var(--green-mid) 100%);
     border-right: none;
@@ -68,9 +60,7 @@ html, body, [class*="css"] {
 [data-testid="stSidebar"] hr { border-color: rgba(255,255,255,0.15) !important; }
 [data-testid="stSidebarNav"] { display: none; }
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   HEADER BANNER
-   ═══════════════════════════════════════════════════════════════════════════ */
+/*    HEADER BANNER */
 .sou-header {
     background: linear-gradient(135deg, var(--green-deep) 0%, var(--green-mid) 60%, var(--green-light) 100%);
     border-radius: var(--radius);
@@ -109,9 +99,7 @@ html, body, [class*="css"] {
     vertical-align: middle;
 }
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   METRIC CARDS
-   ═══════════════════════════════════════════════════════════════════════════ */
+/*   METRIC CARDS */
 .metric-row { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
 .metric-card {
     flex: 1;
@@ -143,9 +131,7 @@ html, body, [class*="css"] {
 }
 .mc-delta { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.3rem; }
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   TYPOGRAPHY HELPERS
-   ═══════════════════════════════════════════════════════════════════════════ */
+/*   TYPOGRAPHY HELPERS */
 .section-title {
     font-family: 'Playfair Display', serif;
     font-size: 1.5rem;
@@ -161,9 +147,7 @@ html, body, [class*="css"] {
     margin-bottom: 1rem;
 }
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   DATA TABLES
-   ═══════════════════════════════════════════════════════════════════════════ */
+/*   DATA TABLES */
 [data-testid="stDataFrame"] { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
 .stDataFrame thead th {
     background: var(--green-deep) !important;
@@ -175,9 +159,7 @@ html, body, [class*="css"] {
 }
 .stDataFrame tbody tr:hover { background: var(--green-pale) !important; }
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   BUTTONS
-   ═══════════════════════════════════════════════════════════════════════════ */
+/*    BUTTONS */
 .stButton > button {
     background: linear-gradient(135deg, var(--green-mid), var(--green-deep));
     color: var(--white) !important;
@@ -199,9 +181,8 @@ html, body, [class*="css"] {
     border: 1px solid var(--border);
 }
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   FORM INPUTS
-   ═══════════════════════════════════════════════════════════════════════════ */
+   /*FORM INPUTS */
+  
 .stTextInput   > div > div,
 .stNumberInput > div > div,
 .stSelectbox   > div > div,
@@ -221,9 +202,8 @@ html, body, [class*="css"] {
     text-transform: uppercase !important;
 }
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   TABS
-   ═══════════════════════════════════════════════════════════════════════════ */
+ /*  TABS */
+  
 .stTabs [role="tablist"] {
     background: var(--white);
     border-radius: var(--radius);
@@ -246,9 +226,8 @@ html, body, [class*="css"] {
     color: var(--white) !important;
 }
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   CALLOUT CARDS
-   ═══════════════════════════════════════════════════════════════════════════ */
+ /*  CALLOUT CARDS */
+  
 .info-card {
     background: var(--green-pale);
     border-radius: var(--radius);
@@ -267,9 +246,7 @@ html, body, [class*="css"] {
     box-shadow: 0 2px 8px rgba(26,60,43,0.06);
 }
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   REMINDER PILLS  (Care Planner tab)
-   ═══════════════════════════════════════════════════════════════════════════ */
+  /*    REMINDER PILLS  (Care Planner tab)  */
 .reminder-pill {
     display: inline-block;
     background: var(--gold-light);
@@ -282,11 +259,31 @@ html, body, [class*="css"] {
     border: 1px solid var(--gold);
 }
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   SCROLLBAR
-   ═══════════════════════════════════════════════════════════════════════════ */
+/*  SCROLLBAR   */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: var(--cream); }
 ::-webkit-scrollbar-thumb { background: var(--green-light); border-radius: 3px; }
+
+/*  DEPLOY  */
+[data-testid="stHeader"], 
+header, 
+.stAppHeader, 
+[data-testid="stAppHeader"] {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0px !important;
+    min-height: 0px !important;
+    padding: 0px !important;
+    margin: 0px !important;
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+/* Відступ, щоб контент не прилипав до самого верху вікна браузера */
+.stMainBlockContainer, [data-testid="stMainBlockContainer"] {
+    padding-top: 2rem !important;
+}
+
 </style>
 """
