@@ -1,9 +1,6 @@
 # Seeds of Ukraine — SaaS Platform
 
 
-A commercial-grade, modular Streamlit + PostgreSQL SaaS/CRM platform
-for modern Ukrainian farmers, agronomists, and agricultural businesses.
-
 ---
 
 ## Quick Start (Arch Linux)
