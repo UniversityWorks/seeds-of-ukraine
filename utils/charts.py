@@ -1,15 +1,4 @@
-"""
-utils/charts.py
-===============
-Factory functions that produce fully-styled Plotly figures.
 
-Rules:
-  • Every function returns a plotly.graph_objects.Figure — never renders it.
-    The page module calls st.plotly_chart(fig, use_container_width=True).
-  • All colour constants are imported from config/settings.py so the palette
-    stays in sync with the CSS variables in config/styles.py.
-  • No Streamlit imports here — these are pure Plotly helpers.
-"""
 
 import pandas as pd
 import plotly.express as px
@@ -20,7 +9,6 @@ from config.settings import (
     PLOTLY_GREEN_SCALE, DEFAULT_CHART_HEIGHT,
 )
 
-# ── shared layout defaults applied to every figure ───────────────────────────
 _BASE_LAYOUT = dict(
     plot_bgcolor  = "rgba(0,0,0,0)",
     paper_bgcolor = "rgba(0,0,0,0)",
@@ -35,9 +23,6 @@ def _apply(fig: go.Figure, height: int = DEFAULT_CHART_HEIGHT) -> go.Figure:
     return fig
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Horizontal bar — e.g. total harvest by region
-# ─────────────────────────────────────────────────────────────────────────────
 def bar_horizontal(df: pd.DataFrame,
                    x: str, y: str,
                    color_col: str | None = None,
@@ -51,9 +36,6 @@ def bar_horizontal(df: pd.DataFrame,
     return _apply(fig, height)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Vertical bar — e.g. average water volume per crop
-# ─────────────────────────────────────────────────────────────────────────────
 def bar_vertical(df: pd.DataFrame,
                  x: str, y: str,
                  color_col: str | None = None,
@@ -69,9 +51,6 @@ def bar_vertical(df: pd.DataFrame,
     return _apply(fig, height)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Grouped bar — e.g. yield per variety grouped by region
-# ─────────────────────────────────────────────────────────────────────────────
 def bar_grouped(df: pd.DataFrame,
                 x: str, y: str, color: str,
                 height: int = DEFAULT_CHART_HEIGHT) -> go.Figure:
@@ -83,9 +62,6 @@ def bar_grouped(df: pd.DataFrame,
     return _apply(fig, height)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Pie / donut — e.g. crop breakdown by season
-# ─────────────────────────────────────────────────────────────────────────────
 def pie_donut(df: pd.DataFrame,
               values: str, names: str,
               height: int = 280) -> go.Figure:
@@ -101,9 +77,6 @@ def pie_donut(df: pd.DataFrame,
     return _apply(fig, height)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Scatter — e.g. growth cycle vs. avg yield
-# ─────────────────────────────────────────────────────────────────────────────
 def scatter(df: pd.DataFrame,
             x: str, y: str,
             color: str | None = None,
@@ -120,9 +93,6 @@ def scatter(df: pd.DataFrame,
     return _apply(fig, height)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Histogram — e.g. growth cycle distribution
-# ─────────────────────────────────────────────────────────────────────────────
 def histogram(df: pd.DataFrame,
               x: str,
               color: str | None = None,
@@ -135,9 +105,6 @@ def histogram(df: pd.DataFrame,
     return _apply(fig, height)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Funnel — top N varieties by avg yield
-# ─────────────────────────────────────────────────────────────────────────────
 def funnel(df: pd.DataFrame,
            x: str, y: str,
            top_n: int = 10,
@@ -149,9 +116,6 @@ def funnel(df: pd.DataFrame,
     return _apply(fig, height)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Treemap — hierarchical breakdown
-# ─────────────────────────────────────────────────────────────────────────────
 def treemap(df: pd.DataFrame,
             path: list,
             color: str,
@@ -169,9 +133,6 @@ def treemap(df: pd.DataFrame,
     return fig
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Bar with reference line — e.g. germination vs. threshold
-# ─────────────────────────────────────────────────────────────────────────────
 def bar_with_threshold(df: pd.DataFrame,
                        x: str, y: str,
                        threshold: float,

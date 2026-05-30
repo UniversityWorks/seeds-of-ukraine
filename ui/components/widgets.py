@@ -1,9 +1,4 @@
-"""
-ui/components/widgets.py
-========================
-Невеликі багаторазові фрагменти Streamlit UI, що використовуються
-у кількох модулях сторінок.
-"""
+
 
 import streamlit as st
 import pandas as pd
@@ -19,7 +14,6 @@ def filter_panel_end():
 
 
 def section(title: str, subtitle: str = "") -> None:
-    """Відображає стилізований заголовок розділу з необов'язковим підзаголовком."""
     sub_html = f'<div class="section-sub">{subtitle}</div>' if subtitle else ""
     st.markdown(
         f'<div class="section-title">{title}</div>{sub_html}',
@@ -28,19 +22,16 @@ def section(title: str, subtitle: str = "") -> None:
 
 
 def info(body: str) -> None:
-    """Відображає стилізовану інформаційну картку."""
     st.markdown(f'<div class="info-card">{body}</div>', unsafe_allow_html=True)
 
 
 def data_table(df: pd.DataFrame,
                height: int = 420,
                empty_msg: str = "Даних за обраними фільтрами не знайдено.") -> None:
-    """Уніфікований рендер DataFrame з обробкою порожнього стану."""
     show_df(df, height=height, empty_msg=empty_msg)
 
 
 def crop_selector(label: str, lookups: dict) -> tuple:
-    """Рендерить список культур та повертає (назва, id)."""
     from database.session import crop_options
     opts = crop_options(lookups)
     if not opts:
@@ -53,7 +44,6 @@ def crop_selector(label: str, lookups: dict) -> tuple:
 def region_selector(label: str, lookups: dict,
                     multiselect: bool = False,
                     default_n: int = 4):
-    """Рендерить список регіонів. Повертає (назва, id) або список назв."""
     from database.session import region_options
     opts   = region_options(lookups)
     names  = list(opts.keys())
@@ -64,7 +54,6 @@ def region_selector(label: str, lookups: dict,
 
 
 def variety_selector(label: str, lookups: dict) -> tuple:
-    """Рендерить список сортів та повертає (мітка, id)."""
     from database.session import variety_options
     opts = variety_options(lookups)
     if not opts:
@@ -75,7 +64,6 @@ def variety_selector(label: str, lookups: dict) -> tuple:
 
 
 def season_selector(label: str, lookups: dict) -> tuple:
-    """Рендерить список сезонів та повертає (назва, id)."""
     from database.session import season_options
     opts = season_options(lookups)
     if not opts:

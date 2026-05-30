@@ -1,8 +1,3 @@
--- =============================================================================
--- Seeds of Ukraine — PostgreSQL Schema
--- 3NF-normalised agricultural SaaS platform
--- Version: 2.0  |  Engine: PostgreSQL 15+
--- =============================================================================
 
 CREATE EXTENSION IF NOT EXISTS pg_trgm;
 

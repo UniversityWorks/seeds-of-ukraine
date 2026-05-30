@@ -1,13 +1,4 @@
-"""
-ui/pages/activity_log.py
-========================
-Вкладка: Журнал аудиту
 
-Відображає тихий журнал аудиту, що наповнюється виключно тригером
-PostgreSQL fn_trigger_variety_audit() — жоден код застосунку не пише до нього.
-
-В інтерфейсі представлено як "Журнал системного аудиту та активності".
-"""
 
 import streamlit as st
 import pandas as pd
@@ -48,7 +39,6 @@ def render(cfg: dict) -> None:
         "Усі записи фіксуються автоматично — ручне ведення не потрібне.",
     )
 
-    # ── Елементи керування ────────────────────────────────────────────────
     ctrl1, ctrl2 = st.columns([3, 1])
     with ctrl2:
         limit = st.number_input(
@@ -58,7 +48,6 @@ def render(cfg: dict) -> None:
         )
         st.button("Оновити", use_container_width=True)
 
-    # ── Дані ──────────────────────────────────────────────────────────────
     df = safe_query(fetch_activity_log, cfg, int(limit))
 
     if df is None or df.empty:
@@ -68,7 +57,6 @@ def render(cfg: dict) -> None:
         )
         return
 
-    # Перекласти значення операцій на українську
     df_display = _rename(df, _COL_AUDIT).copy()
     if "Операція" in df_display.columns:
         df_display["Операція"] = df_display["Операція"].map(
@@ -91,7 +79,6 @@ def render(cfg: dict) -> None:
         "Цей журнал доступний лише для читання та не може бути відредагований або видалений."
     )
 
-    # ── Зведення активності ───────────────────────────────────────────────
     if "Action" in df.columns:
         st.markdown("---")
         section("Зведення активності")

@@ -1,14 +1,4 @@
-"""
-ui/pages/catalogue.py
-=====================
-Вкладка: Каталог сортів
 
-Підвкладки:
-  1. Активні культури    — Q01, Q15
-  2. Фільтр циклу росту  — Q02 (BETWEEN)
-  3. Пошук за ключовим словом — Q04 (LIKE), Q06 (OR)
-  4. Кліматичне покриття — Q07 (DISTINCT), Q16 (LEFT JOIN), Q17 (RIGHT JOIN)
-"""
 
 import streamlit as st
 import pandas as pd
@@ -22,7 +12,6 @@ from database.queries import (
 from utils.error_handler   import safe_query
 from ui.components.widgets import section, data_table
 
-# ── Маппінги колонок ──────────────────────────────────────────────────────
 _COL_CROPS = {
     "Crop Name":      "Назва культури",
     "Plant Family":   "Ботанічна родина",
@@ -93,7 +82,6 @@ def render(cfg: dict) -> None:
         "Кліматичне покриття",
     ])
 
-    # ── Підвкладка 1: Активні культури ───────────────────────────────────
     with sub1:
         section("Типи активних культур",
                 "Усі типи культур, що наразі позначені активними у платформі.")
@@ -107,7 +95,6 @@ def render(cfg: dict) -> None:
         df15 = safe_query(q15_varieties_with_crops, cfg)
         data_table(_rename(df15, _COL_VARIETIES), height=480)
 
-    # ── Підвкладка 2: Фільтр BETWEEN ─────────────────────────────────────
     with sub2:
         section("Фільтр за тривалістю вегетаційного циклу",
                 "Відображати лише сорти, повний цикл вирощування яких потрапляє у вибране вікно.")
@@ -139,7 +126,6 @@ def render(cfg: dict) -> None:
                        .round(1))
             st.dataframe(summary, use_container_width=True)
 
-    # ── Підвкладка 3: Пошук LIKE ─────────────────────────────────────────
     with sub3:
         section("Пошук сорту за ключовим словом",
                 "Пошук по всіх назвах сортів за частковим збігом.")
@@ -151,19 +137,20 @@ def render(cfg: dict) -> None:
         else:
             st.info("Введіть ключове слово для початку пошуку.")
 
+        st.divider()
 
         section("Сорти зони Степ та Лісостеп",
                 "Усі сорти, адаптовані до найважливіших агрокліматичних зон України.")
         df06 = safe_query(q06_steppe_or_forest_steppe, cfg)
         data_table(_rename(df06, _COL_ZONE))
 
-    # ── Підвкладка 4: Кліматичне покриття ────────────────────────────────
     with sub4:
         section("Активні кліматичні зони",
                 "Кліматичні зони, в яких присутній хоча б один активний сорт.")
         df07 = safe_query(q07_distinct_climate_zones, cfg)
         data_table(_rename(df07, _COL_CLIMATE_ZONES))
 
+        st.divider()
 
         section("Сорти без записів догляду",
                 "Активні сорти, що не мають жодного запису догляду — потребують уваги.")
@@ -173,6 +160,7 @@ def render(cfg: dict) -> None:
         else:
             data_table(_rename(df16, _COL_UNMANAGED))
 
+        st.divider()
 
         section("Регіональне покриття",
                 "Усі зареєстровані регіони — прогалини вказують на регіони без призначених сортів.")

@@ -1,11 +1,4 @@
-"""
-ui/components/shell.py
-======================
-Компоненти оболонки застосунку:
-  render_sidebar()       — форма підключення у боковій панелі; повертає db_config.
-  render_header()        — широкий заголовок-банер угорі кожної сторінки.
-  render_not_connected() — екран-шлюз до встановлення з'єднання.
-"""
+
 
 import streamlit as st
 from config.styles   import GLOBAL_CSS
@@ -18,10 +11,6 @@ from config.settings import (
 
 
 def render_sidebar() -> dict:
-    """
-    Відображає панель підключення та вводить глобальний CSS.
-    Повертає словник db_config зі значень форми.
-    """
     st.markdown(GLOBAL_CSS, unsafe_allow_html=True)
 
     with st.sidebar:
@@ -91,7 +80,6 @@ def render_sidebar() -> dict:
 
 
 def render_header() -> None:
-    """Відображає широкий градієнтний заголовок-банер."""
     st.markdown(f"""
     <div class="sou-header">
         <div>
@@ -105,7 +93,6 @@ def render_header() -> None:
 
 
 def render_not_connected() -> None:
-    """Відображає екран-шлюз при відсутності активного з'єднання."""
     st.markdown("""
     <div class="info-card" style="font-size:1rem; padding:1.5rem 2rem;">
         <strong>Відсутнє підключення до платформи.</strong><br><br>

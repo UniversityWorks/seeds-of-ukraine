@@ -1,13 +1,4 @@
-"""
-ui/pages/yield_intelligence.py
-==============================
-Вкладка: Аналітика врожайності
 
-Підвкладки:
-  1. Регіональні звіти    — Q03 (IN), Q14 (HAVING+WHERE+ORDER), Q19 (JOIN+LIKE)
-  2. Показники продуктивності — Q09 (AVG/SUM), Q11 (GROUP BY agg), Q12 (agg+WHERE)
-  3. Якість та рейтинги   — Q08 (MIN/MAX), Q13 (HAVING), Q20 (JOIN+agg)
-"""
 
 import streamlit as st
 import pandas as pd
@@ -25,7 +16,6 @@ from utils.formatters      import safe_scalar
 from ui.components.widgets import section, data_table
 from config.settings       import CROP_FAMILY_OPTIONS
 
-# ── Маппінги колонок ──────────────────────────────────────────────────────
 _COL_YIELD = {
     "Variety":        "Сорт",
     "Crop":           "Культура",
@@ -94,7 +84,6 @@ def render(cfg: dict) -> None:
         "Якість та рейтинги",
     ])
 
-    # ── Підвкладка 1: Регіональні звіти ──────────────────────────────────
     with sub1:
         section("Врожайність за цільовими регіонами",
                 "Оберіть один або кілька регіонів для аналізу їхньої врожайності.")
@@ -134,7 +123,6 @@ def render(cfg: dict) -> None:
                           int(sel_year), float(min_avg))
         data_table(_rename(df14, _COL_TOP_REGIONS))
 
-    # ── Підвкладка 2: Показники продуктивності ────────────────────────────
     with sub2:
         section("Ефективність зрошення за культурою",
                 "Середній обсяг поливу та загальна оброблювана площа по культурах.")
@@ -163,7 +151,6 @@ def render(cfg: dict) -> None:
                           sel_family, int(sel_min_yr))
         data_table(_rename(df12, _COL_FAMILY_YEAR))
 
-    # ── Підвкладка 3: Якість та рейтинги ─────────────────────────────────
     with sub3:
         section("Рекордні показники врожайності")
         df08 = safe_query(q08_max_min_yield, cfg)

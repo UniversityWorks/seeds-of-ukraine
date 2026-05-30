@@ -1,17 +1,4 @@
-"""
-ui/pages/overview.py
-====================
-Вкладка: Огляд
 
-Виконавча інформаційна панель:
-  - Чотири KPI-метрики (Q08, Q10, кількість регіонів)
-  - Таблиця загального врожаю за регіонами (Q20)
-  - Таблиця активних культур за сезонами (Q01)
-  - Таблиця середньої врожайності сортів (Q11 x Q15)
-
-Всі графіки та діаграми видалено. Дані відображаються
-у вигляді структурованих таблиць та KPI-блоків.
-"""
 
 import streamlit as st
 import pandas as pd
@@ -23,7 +10,6 @@ from utils.error_handler   import safe_query
 from utils.formatters      import safe_scalar
 from ui.components.widgets import section, data_table
 
-# Маппінг технічних назв колонок на українські бізнес-заголовки
 _COL_CROPS = {
     "crop_id":     "ID культури",
     "Crop Name":   "Назва культури",
@@ -47,12 +33,10 @@ _COL_AVG_YIELD = {
 
 
 def _rename(df: pd.DataFrame, mapping: dict) -> pd.DataFrame:
-    """Перейменовує колонки за словником, ігнорує відсутні."""
     return df.rename(columns={k: v for k, v in mapping.items() if k in df.columns})
 
 
 def render(cfg: dict) -> None:
-    # ── KPI-метрики ───────────────────────────────────────────────────────
     counts     = safe_query(q10_count_varieties, cfg)
     extremes   = safe_query(q08_max_min_yield,   cfg)
     regions_df = st.session_state.lookups.get("regions", pd.DataFrame())
@@ -74,7 +58,6 @@ def render(cfg: dict) -> None:
 
     st.divider()
 
-    # ── Загальний врожай за регіонами (Q20) ──────────────────────────────
     section("Загальний врожай за регіонами",
             "Сукупний обсяг врожаю по зареєстрованих областях.")
     df20 = safe_query(q20_total_yield_per_region, cfg)
@@ -87,13 +70,11 @@ def render(cfg: dict) -> None:
 
     col_left, col_right = st.columns(2)
 
-    # ── Активні культури за сезонами (Q01) ───────────────────────────────
     with col_left:
         section("Активні культури за сезонами",
                 "Усі культури, що наразі позначені як активні у платформі.")
         df01 = safe_query(q01_active_crops, cfg)
         if not df01.empty:
-            # Зведена таблиця: кількість культур по сезонах
             vc = df01["Primary Season"].value_counts()
             season_summary = pd.DataFrame({
                 "Сільськогосподарський сезон": vc.index.tolist(),
@@ -101,7 +82,6 @@ def render(cfg: dict) -> None:
             })
             data_table(season_summary, height=220)
 
-    # ── Середня врожайність за сортами (Q11 x Q15) ───────────────────────
     with col_right:
         section("Продуктивність сортів",
                 "Середня врожайність та загальна площа по кожному сорту.")

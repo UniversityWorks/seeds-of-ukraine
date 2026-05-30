@@ -1,15 +1,3 @@
-"""
-ui/pages/care_planner.py
-========================
-Вкладка: Планувальник догляду
-
-Функції:
-  - Панель нагадувань про полив — виклик sp_generate_watering_reminders()
-  - Трекер продуктивних сортів — Q05 (AND умови)
-  - Зведення кількості сортів  — Q10 (COUNT)
-  - Швидкостиглі південні сорти — Q18 (JOIN + WHERE)
-"""
-
 import streamlit as st
 import pandas as pd
 
@@ -20,7 +8,6 @@ from utils.formatters      import safe_scalar
 from ui.components.widgets import section, data_table
 from config.settings       import CARE_HORIZON_DEFAULT_DAYS
 
-# ── Маппінги колонок ──────────────────────────────────────────────────────
 _COL_REMINDERS = {
     "Variety":            "Сорт",
     "Crop":               "Культура",
@@ -52,7 +39,6 @@ def render(cfg: dict) -> None:
     section("Планувальник завдань та сповіщень про полив",
             "Автоматизоване планування догляду на основі інтервалів поливу кожного сорту.")
 
-    # ── Збережена процедура: генерація нагадувань про полив ───────────────
     sp_col1, sp_col2 = st.columns([3, 1])
     with sp_col1:
         horizon = st.slider("Горизонт планування (днів наперед)",
@@ -81,7 +67,6 @@ def render(cfg: dict) -> None:
 
     st.divider()
 
-    # ── Q05: AND умови — сорти з високою схожістю ─────────────────────────
     section("Трекер продуктивних сортів",
             "Фільтрація активних сортів за типом культури та мінімальним рівнем схожості.")
 
@@ -103,7 +88,6 @@ def render(cfg: dict) -> None:
 
     st.divider()
 
-    # ── Q10: COUNT — зведення кількості сортів ────────────────────────────
     section("Зведення кількості сортів у платформі")
     df10 = safe_query(q10_count_varieties, cfg)
     if not df10.empty:
@@ -117,7 +101,6 @@ def render(cfg: dict) -> None:
 
     st.divider()
 
-    # ── Q18: JOIN + WHERE — швидкостиглі південні сорти ──────────────────
     section("Швидкостиглі сорти для південних зон",
             "Сорти, придатні для короткого вегетаційного вікна степових та прибережних зон.")
     max_gc = st.slider("Максимальний цикл росту (днів)", 50, 200, 100)

@@ -1,13 +1,4 @@
-"""
-ui/pages/manage_varieties.py
-============================
-Вкладка: Управління сортами
 
-Повний CRUD для seed_varieties:
-  Додати новий сорт   — INSERT (тригер аудиту спрацьовує автоматично)
-  Редагувати сорт     — UPDATE (тригер аудиту спрацьовує автоматично)
-  Архівувати сорт     — м'яке видалення (is_active = FALSE)
-"""
 
 import streamlit as st
 from datetime import date
@@ -31,12 +22,11 @@ def render(cfg: dict) -> None:
     vars_   = variety_options(lookups)
 
     mode = st.radio(
-        "Дія",
+        "",
         ["Додати новий сорт", "Редагувати існуючий сорт", "Архівувати сорт"],
         horizontal=True,
     )
 
-    # ── ДОДАТИ ────────────────────────────────────────────────────────────
     if mode == "Додати новий сорт":
         st.markdown("---")
         with st.form("form_add_variety", clear_on_submit=True):
@@ -90,7 +80,6 @@ def render(cfg: dict) -> None:
                     st.session_state.lookups = refresh_lookups(cfg)
                     st.rerun()
 
-    # ── РЕДАГУВАТИ ────────────────────────────────────────────────────────
     elif mode == "Редагувати існуючий сорт":
         st.markdown("---")
         if not vars_:
@@ -149,7 +138,6 @@ def render(cfg: dict) -> None:
             else:
                 st.warning("Змін не збережено.")
 
-    # ── АРХІВУВАТИ ────────────────────────────────────────────────────────
     else:
         st.markdown("---")
         if not vars_:

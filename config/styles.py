@@ -1,15 +1,4 @@
-"""
-config/styles.py
-================
-Central CSS stylesheet for the Seeds of Ukraine platform.
 
-Keeping CSS in its own module means:
-  • A designer can edit styles without touching any Python logic.
-  • The stylesheet is injected once by the shell component and is available
-    globally for the session — no per-page duplication.
-  • Variables mirror the Python colour constants in config/settings.py so
-    Plotly charts and CSS stay visually in sync.
-"""
 
 GLOBAL_CSS = """
 <style>
@@ -280,7 +269,6 @@ header,
     box-shadow: none !important;
 }
 
-/* Відступ, щоб контент не прилипав до самого верху вікна браузера */
 .stMainBlockContainer, [data-testid="stMainBlockContainer"] {
     padding-top: 2rem !important;
 }

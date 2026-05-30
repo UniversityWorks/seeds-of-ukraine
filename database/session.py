@@ -1,52 +1,18 @@
-"""
-database/session.py
-===================
-Session-level helpers that sit between the raw connection layer
-(database/connection.py) and the Streamlit app shell (app.py).
 
-Responsibilities:
-  • ping()           — thin wrapper so app.py doesn't import from connection.py directly.
-  • refresh_lookups()— build the lookup dict (crops, regions, seasons, varieties)
-                       that populates every dropdown in the UI.
 
-The lookup dict is stored in st.session_state.lookups and refreshed
-whenever a write operation mutates the underlying tables.
-"""
 
 import pandas as pd
 from database.connection import ping as _ping, fetch
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Connectivity
-# ─────────────────────────────────────────────────────────────────────────────
-
 def ping(cfg: dict) -> bool:
-    """
-    Test database connectivity.  Returns True on success, False on any error.
-    Intentionally swallows all exceptions so the UI can render a friendly
-    message rather than an unhandled traceback.
-    """
+   
     try:
         return _ping(cfg)
     except Exception:
         return False
 
-
-# ─────────────────────────────────────────────────────────────────────────────
-# Lookup tables
-# ─────────────────────────────────────────────────────────────────────────────
-
 def refresh_lookups(cfg: dict) -> dict:
-    """
-    Fetch all reference / lookup data needed to populate UI dropdowns.
-
-    Returns a dict with four keys:
-      crops     — DataFrame(crop_id, crop_name)
-      regions   — DataFrame(region_id, region_name)
-      seasons   — DataFrame(season_id, season_name)
-      varieties — DataFrame(variety_id, label)   where label = "Name (Crop)"
-    """
     crops = fetch(
         cfg,
         "SELECT crop_id, crop_name FROM crops WHERE is_active ORDER BY crop_name;",
@@ -78,12 +44,7 @@ def refresh_lookups(cfg: dict) -> dict:
     }
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Convenience accessors (thin wrappers used by page modules)
-# ─────────────────────────────────────────────────────────────────────────────
-
 def crop_options(lookups: dict) -> dict:
-    """Return {crop_name: crop_id} dict for selectbox widgets."""
     df = lookups.get("crops", pd.DataFrame())
     if df.empty:
         return {}
@@ -91,7 +52,6 @@ def crop_options(lookups: dict) -> dict:
 
 
 def region_options(lookups: dict) -> dict:
-    """Return {region_name: region_id} dict for selectbox widgets."""
     df = lookups.get("regions", pd.DataFrame())
     if df.empty:
         return {}
@@ -99,7 +59,6 @@ def region_options(lookups: dict) -> dict:
 
 
 def season_options(lookups: dict) -> dict:
-    """Return {season_name: season_id} dict for selectbox widgets."""
     df = lookups.get("seasons", pd.DataFrame())
     if df.empty:
         return {}
@@ -107,7 +66,6 @@ def season_options(lookups: dict) -> dict:
 
 
 def variety_options(lookups: dict) -> dict:
-    """Return {label: variety_id} dict for selectbox widgets."""
     df = lookups.get("varieties", pd.DataFrame())
     if df.empty:
         return {}
