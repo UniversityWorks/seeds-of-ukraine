@@ -1,0 +1,7 @@
+# Seeds of Ukraine — Python dependencies
+# Install with:  pip install -r requirements.txt
+
+streamlit>=1.32.0
+psycopg2-binary>=2.9.9
+pandas>=2.1.0
+plotly>=5.20.0
