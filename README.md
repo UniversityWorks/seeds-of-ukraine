@@ -1,4 +1,4 @@
-#Seeds of Ukraine — SaaS Platform
+# Seeds of Ukraine — SaaS Platform
 
 
 A commercial-grade, modular Streamlit + PostgreSQL SaaS/CRM platform
@@ -10,7 +10,7 @@ for modern Ukrainian farmers, agronomists, and agricultural businesses.
 
 ```bash
 # 1. Clone / place the project
-cd seeds_of_ukraine_v2
+cd seeds-of-ukraine
 
 # 2. Install Python dependencies
 pip install -r requirements.txt
@@ -37,7 +37,7 @@ Open **http://localhost:8501** in your browser.
 ## Project Architecture
 
 ```
-seeds_of_ukraine_v2/
+seeds-of-ukraine/
 │
 ├── app.py                          
 ├── requirements.txt
