@@ -37,26 +37,7 @@ def _rename(df: pd.DataFrame, mapping: dict) -> pd.DataFrame:
 
 
 def render(cfg: dict) -> None:
-    counts     = safe_query(q10_count_varieties, cfg)
-    extremes   = safe_query(q08_max_min_yield,   cfg)
     regions_df = st.session_state.lookups.get("regions", pd.DataFrame())
-
-    total_v  = safe_scalar(counts,   "Total Varieties",     0,   int)
-    active_v = safe_scalar(counts,   "Active Varieties",    0,   int)
-    peak_y   = safe_scalar(extremes, "Peak Yield (t/ha)",   0.0, float)
-    low_y    = safe_scalar(extremes, "Lowest Yield (t/ha)", 0.0, float)
-
-    m1, m2, m3, m4 = st.columns(4)
-    m1.metric("Усього сортів",             str(total_v),
-              delta=f"{active_v} активних")
-    m2.metric("Максимальна врожайність",    f"{peak_y:.1f} т/га",
-              delta="рекордний показник")
-    m3.metric("Мінімальна врожайність",     f"{low_y:.2f} т/га",
-              delta="базовий рівень")
-    m4.metric("Зареєстровано регіонів",     str(len(regions_df)),
-              delta="областей України")
-
-    st.divider()
 
     section("Загальний врожай за регіонами",
             "Сукупний обсяг врожаю по зареєстрованих областях.")
